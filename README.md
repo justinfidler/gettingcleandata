@@ -1,14 +1,14 @@
-==================================================================
 Human Activity Recognition Using Smartphones Dataset
+==================================================================
 Tidy Subset version of the the average of each variable for each activity and each subject.
-==================================================================
-
-==================================================================
 Initial data taken from 
 http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones 
-======================================
-- The mean of the mean and std measurements broken down by each activity and each test subject
+
+Summary
+-----------------
+The mean of the mean and std measurements broken down by each activity and each test subject
 Where Measurements are (taken from original data set, selecting only for mean and std)
+
 * 1 tBodyAcc-mean()-X
 * 2 tBodyAcc-mean()-Y
 * 3 tBodyAcc-mean()-Z
@@ -104,7 +104,8 @@ And activities are:
 * 5 STANDING
 * 6 LAYING
 
-=========================================
+Included Files
+--------------
 
 - 'README.md'
 - 'mean_table.txt'
