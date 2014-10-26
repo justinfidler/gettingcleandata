@@ -32,7 +32,7 @@ if(!file.exists("./data")){dir.create("./data")}
 
 fileurl <-  "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 
-
+#Gather all the relevant files we'll need
 train_data_subject <- read.table(unz("./data/dataset.zip", "UCI HAR Dataset/train/subject_train.txt"))
 train_data_x       <- read.table(unz("./data/dataset.zip", "UCI HAR Dataset/train/X_train.txt"))
 train_data_y       <- read.table(unz("./data/dataset.zip", "UCI HAR Dataset/train/y_train.txt"))
@@ -41,14 +41,12 @@ test_data_subject    <-read.table(unz("./data/dataset.zip", "UCI HAR Dataset/tes
 test_data_x          <-read.table(unz("./data/dataset.zip", "UCI HAR Dataset/test/X_test.txt"))	  
 test_data_y          <-read.table(unz("./data/dataset.zip", "UCI HAR Dataset/test/y_test.txt"))
 
+#and the labels
 activity_labels      <-read.table(unz("./data/dataset.zip", "UCI HAR Dataset/activity_labels.txt"))
-
-
-
 test_row_names   <- apply(test_data_y, 2 ,   function(x) activity_labels$V2[x] )
 train_row_names  <- apply(test_data_y, 2 ,   function(x) activity_labels$V2[x] )
 
-
+#Do some manipulation of the labels to make the data tidy
 for(i in 1:nrow(test_row_names)) {
     test_row_names[[i,1]] <- paste("Subject #", test_data_subject[[i,1]], test_row_names[[i,1]] , i ,collapse="")
 }
@@ -60,6 +58,7 @@ for(i in 1:nrow(train_row_names)) {
     train_row_names[[i,1]] <- paste("Subject #", train_data_subject[[i,1]], train_row_names[[i,1]] , i ,collapse="")
 }
 
+#assign the rownames (measurement number and test subject number)
 rownames(test_data_x)  <- test_row_names
 rownames(train_data_x) <- train_row_names
 
@@ -78,10 +77,11 @@ features_mean_std   <- grepl( "mean()|std()" ,  features$V2, perl=TRUE)
 
 mean_std_combined_measurements <- combined_measurements[features_mean_std]
 
+#apply names to the features(measurements) collected during each measurement (the column)
 colnames(mean_std_combined_measurements) <- features$V2[features_mean_std]
 
 
-
+#write a table out of this data (this data is step4)
 write.table(mean_std_combined_measurements, "test.csv")
 
 
